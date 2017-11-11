@@ -1,0 +1,15 @@
+{
+  "name": "curso-mean2",
+  "version": "1.0.0",
+  "description": "Proyecto de API Rest con nodejs para el curso de udemy",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mario Garrido",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
