@@ -9,6 +9,7 @@ var app = require('./app');
 var port = process.env.PORT || 10201;
 
 //Conexión a base de datos
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/curso_mean2',(err,res) =>{
 	if (err) {
 		throw err;
