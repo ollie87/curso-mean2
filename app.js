@@ -6,6 +6,9 @@ var bodyParser = require('body-parser');
 var app = express();
 
 //Cargar rutas
+var user_routes = require('./routes/user')
+
+
 app.use(bodyParser.urlencoded({extend:false}));
 //Transforma las peticiones del servidor en objetos json
 app.use(bodyParser.json())
@@ -14,10 +17,8 @@ app.use(bodyParser.json())
 
 
 //carga de rutas base
+app.use('/api', user_routes);
 
-app.get('/pruebas', function(req,res){
-	res.status(200).send({message: 'Curso mean2'})
-});
 
 //exportamos el módulo para poder utilizar express en otros ficheros que incluyan app
 module.exports = app;
