@@ -84,6 +84,25 @@ function loginUser(req, res){
 	});
 }
 
+function updateUser(req, res){
+	var userId = req.params.id;
+	var update = req.body;
+
+	User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
+		if (err) {
+			console.log(err);
+			res.status(500).send({messaje: 'Error al actualizar el usuario'});
+		}else{
+			if (!userUpdated) {
+				res.status(404).send({messaje: 'No se ha podido actualizar el usuario'});
+			}else{
+				res.status(200).send({
+					user: userUpdated
+				});
+			}
+		}
+	});
+}
 
 function checkUser(params){
 	var mensaje = {}
@@ -110,5 +129,6 @@ function checkUser(params){
 module.exports = {
 	pruebas,
 	saveUser,
-	loginUser
+	loginUser,
+	updateUser
 };
