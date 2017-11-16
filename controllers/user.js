@@ -104,6 +104,40 @@ function updateUser(req, res){
 	});
 }
 
+function uploadImages(req, res){
+	var userId = req.params.id;
+	var file_name = 'No subido...';
+
+	if (req.files) {
+		var file_path = req.files.image.path;
+		var file_split = file_path.split('\\');
+		var file_name = file_split[2];
+		var ex_split = file_path.split('\.');
+		var file_ex = ex_split[1];
+
+		if(file_ex == 'png' || file_ex == 'jpg' || file_ex == 'gif'){
+			User.findByIdAndUpdate(userId,{image: filename},(err, userUpdated) =>{
+				if (err) {
+					console.log(err);
+					res.status(500).send({messaje: 'Error al actualizar la imagen'});
+				}else{
+					if (!userUpdated) {
+						res.status(404).send({messaje: 'No se ha podido actualizar la imagen'});
+					}else{
+						res.status(200).send({
+							user: userUpdated
+						});
+					}
+				}
+			});
+		}else{
+			res.status(200).send({messaje: 'Extensión del archivo no válido'});
+		}
+	}else{
+		res.status(200).send({messaje: 'No ha subido ninguna imagen'});
+	}
+}
+
 function checkUser(params){
 	var mensaje = {}
 	i= 0;
@@ -130,5 +164,6 @@ module.exports = {
 	pruebas,
 	saveUser,
 	loginUser,
-	updateUser
+	updateUser,
+	uploadImages
 };
