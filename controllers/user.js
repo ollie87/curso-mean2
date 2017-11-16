@@ -5,7 +5,7 @@ var path = require('path');
 var bcrypt = require('bcrypt-nodejs');
 var User = require('../models/user');
 var jwt = require('../services/jwt');
-var image = require('../services/image');
+var file = require('../services/file');
 
 
 function pruebas(req, res){
@@ -136,7 +136,7 @@ function uploadImages(req, res){
 				}
 			});
 		}else{
-			image.deleteImage(file_path);
+			file.deleteFile(file_path);
 			res.status(200).send({messaje: 'Extensión del archivo no válido'});
 		}
 	}else{
