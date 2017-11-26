@@ -39,7 +39,7 @@ function saveArtist(req, res){
 			if (!artistStored) {
 				res.status(404).send({message: 'El artista no ha sido guardado'});	
 			}else{
-				res.status(200).send({artis: artistStored});	
+				res.status(200).send({artist: artistStored});	
 			}
 		}
 	})
@@ -80,9 +80,45 @@ function updateArtist(req, res){
 			res.status(500).send({message: 'Error en la petición updateArtist'});
 		}else{
 			if (!artistUpdated) {
-				res.status(404).send({message: 'El artista no existe'});	
+				res.status(404).send({message: 'El artista no ha sido actualizado'});	
 			}else{
 				res.status(200).send({artist: artistUpdated});	
+			}
+		}
+	});
+}
+
+function deleteArtist(req, res){
+	var artistId = req.params.id;
+
+	Artist.findByIdAndRemove(artistId, (err, artistRemoved) => {
+		if (err) {
+			res.status(500).send({message: 'Error en la petición deleteArtist'});
+		}else{
+			if (!artistRemoved) {
+				res.status(404).send({message: 'El artista no ha sido borrado'});	
+			}else{
+				Album.find({artist: artistRemoved._id}).remove((err, albumRemoved)=>{
+					if (err) {
+						res.status(500).send({message: 'Error en la petición updateArtist album'});
+					}else{
+						if (!albumRemoved) {
+							res.status(404).send({message: 'El album no ha sido borrado'});	
+						}else{
+							Song.find({song: albumRemoved._id}).remove((err, songRemoved)=>{
+								if (err) {
+									res.status(500).send({message: 'Error en la petición updateArtist song'});
+								}else{
+									if (!songRemoved) {
+										res.status(404).send({message: 'La canción no ha sido borrada'});	
+									}else{
+										res.status(200).send({artist: artistRemoved});	
+									}
+								}
+							});	
+						}
+					}
+				});
 			}
 		}
 	});
@@ -92,5 +128,6 @@ module.exports = {
 	getArtist,
 	saveArtist,
 	getArtists,
-	updateArtist
+	updateArtist,
+	deleteArtist
 };
