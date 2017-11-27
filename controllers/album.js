@@ -11,7 +11,7 @@ var file = require('../services/file');
 function getAlbum(req, res){
 	var albumId = req.params.id;
 
-	Album.findById(albumId, (err,album) =>{
+	Album.findById(albumId).populate({path: 'artist'}).exec((err,album) =>{
 		if(err){
 			res.status(500).send({message: 'Error en la petición getAlbum'});
 		}else{
