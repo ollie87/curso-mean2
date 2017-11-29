@@ -16,9 +16,9 @@ function getAlbum(req, res){
 			res.status(500).send({message: 'Error en la petición getAlbum'});
 		}else{
 			if (!album) {
-				res.status(404).send({message: 'El album no existe'});	
+				res.status(404).send({message: 'El album no existe'});
 			}else{
-				res.status(200).send({album: album});	
+				res.status(200).send({album: album});
 			}
 		}
 	});
@@ -40,9 +40,9 @@ function saveAlbum(req, res){
 			res.status(500).send({message: 'Error al guardar el album'});
 		}else{
 			if (!albumtStored) {
-				res.status(404).send({message: 'El album no ha sido guardado'});	
+				res.status(404).send({message: 'El album no ha sido guardado'});
 			}else{
-				res.status(200).send({album: albumtStored});	
+				res.status(200).send({album: albumtStored});
 			}
 		}
 	})
@@ -65,20 +65,65 @@ function getAlbums(req, res){
 			res.status(500).send({message: 'Error en la petición getAlbums'});
 		}else{
 			if (!albums) {
-				res.status(404).send({message: 'No hay albums'});	
+				res.status(404).send({message: 'No hay albums'});
 			}else{
 				res.status(200).send({
 					albums: albums
-				});	
+				});
 			}
 		}
 
 	});
+}
 
+function updateAlbum(req, res){
+	var albumId = req.params.id;
+	var update = req.body;
+
+	Album.findByIdAndUpdate(albumId, update, (err, albumUpdated) => {
+		if (err) {
+			res.status(500).send({message: 'Error en la petición updateAlbum'});
+		}else{
+			if (!albumUpdated) {
+				res.status(404).send({message: 'No existe el album que se intenta actualizar'});
+			}else{
+				res.status(200).send({
+					album: albumUpdated
+				});
+			}
+		}
+	});
+}
+
+function deleteAlbum(req, res){
+	var albumId = req.params.id;
+	Album.findByIdAndRemove(albumId, (err, albumRemoved)=>{
+		if (err) {
+			res.status(500).send({message: 'Error en la petición updateArtist album'});
+		}else{
+			if (!albumRemoved) {
+				res.status(404).send({message: 'El album no ha sido borrado'});
+			}else{
+				Song.find({song: albumRemoved._id}).remove((err, songRemoved)=>{
+					if (err) {
+						res.status(500).send({message: 'Error en la petición updateArtist song'});
+					}else{
+						if (!songRemoved) {
+							res.status(404).send({message: 'La canción no ha sido borrada'});
+						}else{
+							res.status(200).send({album: albumRemoved});
+						}
+					}
+				});
+			}
+		}
+	});
 }
 
 module.exports = {
 	getAlbum,
 	saveAlbum,
-	getAlbums
+	getAlbums,
+	updateAlbum,
+	deleteAlbum
 }
