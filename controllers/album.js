@@ -120,10 +120,60 @@ function deleteAlbum(req, res){
 	});
 }
 
+function uploadImage(req, res){
+	var albumId = req.params.id;
+	var file_name = 'No subido ...';
+
+	if (req.files) {
+		var file_path = req.files.image.path;
+		var file_split = file_path.split('\/');
+		var file_name = file_split[2];
+		
+		var ex_split = file_path.split('\.');
+		var file_ex = ex_split[1];
+
+		if(file_ex == 'png' || file_ex == 'jpg' || file_ex == 'gif'){
+			Album.findByIdAndUpdate(albumId,{image: file_name},(err, albumUpdated) =>{
+				if (err) {
+					console.log(err);
+					res.status(500).send({messaje: 'Error al actualizar la imagen'});
+				}else{
+					if (!albumUpdated) {
+						res.status(404).send({messaje: 'No se ha podido actualizar la imagen'});
+					}else{
+						res.status(200).send({
+							artist: albumUpdated
+						});
+					}
+				}
+			});
+		}else{
+			file.deleteFile(file_path);
+			res.status(200).send({messaje: 'Extensión del archivo no válido'});
+		}
+	}else{
+		res.status(200).send({messaje: 'No ha subido ninguna imagen'});
+	}
+}
+
+function getImageFile(req, res) {
+	var imageFile = req.params.imageFile;
+	var path_file = './uploads/albums/' + imageFile;
+	fs.exists(path_file, function(exists){
+		if(exists){
+			res.sendFile(path.resolve(path_file));
+		}else{
+			res.status(404).send({messaje: 'No existe la imagen...'});			
+		}
+	});
+}
+
 module.exports = {
 	getAlbum,
 	saveAlbum,
 	getAlbums,
 	updateAlbum,
-	deleteAlbum
+	deleteAlbum,
+	uploadImage,
+	getImageFile
 }
