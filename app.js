@@ -17,6 +17,16 @@ app.use(bodyParser.urlencoded({extend:false}));
 app.use(bodyParser.json())
 
 //configurar cabeceras http
+app.use((req, res, next) => {
+	res.header('Access-Control-Allow-Origin', '*'); //Permitimos el acceso a todos los dominios
+	res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method'); //Necesarias para el acceso ajax a la APi
+	res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE'); //Métodos permitidos
+	res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE'); //Métodos permitidos
+
+	next();
+
+});	
+
 
 
 //carga de rutas base
