@@ -130,6 +130,7 @@ function uploadImages(req, res){
 						res.status(404).send({messaje: 'No se ha podido actualizar la imagen'});
 					}else{
 						res.status(200).send({
+							image: file_name,
 							user: userUpdated
 						});
 					}
