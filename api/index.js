@@ -4,8 +4,6 @@
 
 var mongoose = require('mongoose');
 var app = require('./app');
-//Para definir el puerto en Vagrant
-//sudo iptables -I INPUT -p tcp --dport 10201 -j ACCEPT
 var port = process.env.PORT || 10201;
 
 //Conexión a base de datos
