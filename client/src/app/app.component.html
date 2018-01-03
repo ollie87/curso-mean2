@@ -11,14 +11,17 @@
 <div *ngIf="!identity" class="row">
 	<div class="col-lg-6">
 		<h1>Identificate</h1>
-		<form>
+		<form #loginForm="ngForm" (ngSubit)="onSubmit()">
 			<p>
 				<label>Email</label>
-				<input type="text" name="" class="form-control" required>
+				<input #email="ngModel" type="text" name="email" [(ngModel)]="user.email" class="form-control" required>
 			</p>
+			<div *ngIf="!email.valid && email.touched" class="alert alert-danger" role="alert">
+					El email es obligatorio
+				</div>
 			<p>
 				<label>Contraseña</label>
-				<input type="password" name="" class="form-control" required>
+				<input #password="ngModel" type="password" name="password" [(ngModel)]="user.password" class="form-control" required>
 			</p>
 			<input type="submit" value="Entrar" class="btn btn-primary">
 		</form>
