@@ -1,4 +1,3 @@
-//Creación de clase exportable
 export class User{
 	constructor(
 		public _id: string,
@@ -6,7 +5,7 @@ export class User{
 		public surname: string,
 		public email: string,
 		public password: string,
-		public role: string,
+		public rol: string,
 		public image: string
-	){}
+	) {}
 }

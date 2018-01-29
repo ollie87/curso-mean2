@@ -1,4 +1,3 @@
-//Creación de clase exportable
 export class Album{
 	constructor(
 		public title: string,
@@ -6,5 +5,5 @@ export class Album{
 		public year: number,
 		public image: string,
 		public artist: string
-	){}
+	) {}
 }
