@@ -1,52 +1,54 @@
 <div *ngIf="identity" class="navigation col-lg-1">
-	<h1>
-		{{title}}
-	</h1>
+  <h1>
+    {{ title }}
+  </h1>  
 </div>
 <div class="clearfix"></div>
-<div *ngIf="identity" class="navigation col-lg-11">
-	<p>Estás logueado en la aplicación</p>	
+<div *ngIf="identity" class="central col-lg-1">
+  <p>Estás logueado en la aplicación</p>
 </div>
 
-<div *ngIf="!identity" class="row">
-	<div class="col-lg-6">
-		<h1>Identificate</h1>
-		<form #loginForm="ngForm" (ngSubit)="onSubmit()">
-			<p>
-				<label>Email</label>
-				<input #email="ngModel" type="text" name="email" [(ngModel)]="user.email" class="form-control" required>
-			</p>
-			<div *ngIf="!email.valid && email.touched" class="alert alert-danger" role="alert">
-					El email es obligatorio
-				</div>
-			<p>
-				<label>Contraseña</label>
-				<input #password="ngModel" type="password" name="password" [(ngModel)]="user.password" class="form-control" required>
-			</p>
-			<input type="submit" value="Entrar" class="btn btn-primary">
-		</form>
-	</div>
-	<div class="col-lg-6">
-		<h1>Registrate</h1>
-		<form>
-			<p>
-				<label>Nombre</label>
-				<input type="text" name="" class="form-control" required>
-			</p>
-			<p>
-				<label>Apellidos</label>
-				<input type="text" name="" class="form-control" required>
-			</p>
-			<p>
-				<label>Email</label>
-				<input type="text" name="" class="form-control" required>
-			</p>
-			<p>
-				<label>Contraseña</label>
-				<input type="password" name="" class="form-control" required>
-			</p>
-			<input type="submit" value="Registrar" class="btn btn-primary">
-		</form>
-	</div>
+<div *ngIf="!identity" class="col-lg-12">
+  <div class="col-lg-6">
+    <h1>Identificate</h1>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-7">
+      <p>
+        <label>Correo electrónico</label>
+        <input type="email" #email="ngModel" [(ngModel)]="user.email" name="email" class="form-control" required >
+        <span class="label label-danger" *ngIf="!email.valid && email.touched">
+          El email es obligatorio
+        </span>
+      </p>
+      <p>
+        <label>Contraseña</label>
+        <input type="password" class="form-control" required name="password" #password="ngModel" [(ngModel)]="user.password">
+      </p>
+      <input type="submit" name="" value="Entrar" class="btn btn-primary">
+    </form>
+  </div>
+  <div class="col-lg-6">
+    <h1>Registrate</h1>
+    <form class="col-md-7">
+       <p>
+        <label>Nombre</label>
+        <input type="text" class="form-control" required name="">
+      </p>
+       <p>
+        <label>Apellidos</label>
+        <input type="text" class="form-control" required name="">
+      </p>
+       <p>
+        <label>Correo electrónico</label>
+        <input type="text" class="form-control" required name="">
+      </p>
+       <p>
+        <label>Contraseña</label>
+        <input type="password" class="form-control" required name="">
+      </p>
+      <input type="submit" name="" value="Registrar" class="btn btn-primary">
+    </form>
+  </div>
 </div>
+
+
 
