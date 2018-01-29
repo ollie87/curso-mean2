@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "client"    
+    "name": "client"
   },
   "apps": [
     {
@@ -55,10 +55,6 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {
-    }
-  },
-  "buid": {
-    "poll": 100
+    "component": {}
   }
 }
