@@ -74,4 +74,9 @@ export class AppComponent implements OnInit {
   		}
   	);
   }
+  logout(){
+  	localStorage.clear();
+  	this.identity = null;
+  	this.token = null;
+  }
 }
