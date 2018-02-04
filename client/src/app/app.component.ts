@@ -11,12 +11,15 @@ import { User } from './models/user';
 export class AppComponent implements OnInit {
   public title = 'MUSIFY';
   public user: User;
+  public user_register: User;
   public identity;
   public token;
   public errorMessage;
+  public alertRegister;
 
   constructor(private _userService: UserService){
   	this.user = new User('','','','','','ROLE_USER','');
+  	this.user_register = new User('','','','','','ROLE_USER','');
   }
 
 
@@ -51,8 +54,7 @@ export class AppComponent implements OnInit {
 			  			}else{
 			  				//Crear elemento en el localstorage para tener el token disponible
 			  				localStorage.setItem('token',token);
-			  				console.log(token);
-			  				console.log(identity);
+			  				this.user_register = new User('','','','','','ROLE_USER','');
 			  			}
 			  		},
 			  		error =>{
@@ -74,6 +76,31 @@ export class AppComponent implements OnInit {
   		}
   	);
   }
+
+
+  onSubmitRegister(){
+  	console.log(this.user_register);
+
+  	this._userService.register(this.user_register).subscribe(
+  		response =>{
+  			let user = response.user;
+  			this.user_register = user;
+
+  			if (!user._id) {
+  				this.alertRegister = 'Error al registrase';
+  			}else{
+  				this.alertRegister = 'El registro se ha realizado correctamente, identificate con: ' + this.user_register.email;
+  				this.user_register = new User('','','','','','ROLE_USER','');
+  			}
+  		},
+  		error =>{
+  			var body = JSON.parse(error._body);
+			this.alertRegister = body.messaje;
+			console.log(error);
+  		}
+  	);
+  }
+
   logout(){
   	localStorage.clear();
   	this.identity = null;
