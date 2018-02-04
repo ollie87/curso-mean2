@@ -161,7 +161,7 @@ function checkUser(params){
 	var mensaje = {}
 	i= 0;
 	for(var attrname in params){
-		if (params[attrname] == '') {
+		if (params[attrname] == '' && attrname != '_id' && attrname != 'image') {
 			if(!mensaje['campos'])
 				mensaje['campos'] = {};
 			mensaje['campos'][attrname] = attrname;
