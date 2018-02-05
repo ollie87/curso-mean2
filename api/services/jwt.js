@@ -6,7 +6,7 @@ var secret = 'clave_secreta_curso';
 
 exports.createToken = function(user){
 	var payload = {
-		sub: user.id, //Id del registro de la bd
+		sub: user._id, //Id del registro de la bd
 		name: user.name,
 		surname: user.surname,
 		email: user.email,
