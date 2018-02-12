@@ -10,7 +10,7 @@
       <span class="glyphicon glyphicon-search"></span>
         Buscar
     </a>
-    <a href="#">
+    <a [routerLink]="['/artists',1]" [routerLinkActive] = "['active']">
       <span class="glyphicon glyphicon-star"></span>
         Artistas
     </a>
@@ -25,7 +25,7 @@
       <img id="image-logged" src="{{url +'get-image-user/'+ identity.image}}" />
     </div>
     <span id="identity_name">{{identity.name}}</span>
-    <a [routerLink]="['/mis-datos']">
+    <a [routerLink]="['/mis-datos']" [routerLinkActive] = "['active']">
       <span class="glyphicon glyphicon-cog"></span>
       Mis datos
     </a>
@@ -35,7 +35,7 @@
     </a>
   </nav>
 </div>
-<div *ngIf="identity" class="central col-sm-8 col-lg-11">
+<div [hidden]="!identity" class="central col-sm-8 col-lg-11">
   <router-outlet></router-outlet>
 </div>
 
