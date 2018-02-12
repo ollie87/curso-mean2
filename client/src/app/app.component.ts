@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from './services/user.service';
 import { User } from './models/user';
 import {GLOBAL} from './services/global';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
   public alertRegister;
   public url: string;
 
-  constructor(private _userService: UserService){
+  constructor(private _userService: UserService, private _router: Router){
   	this.user = new User('','','','','','ROLE_USER','');
   	this.user_register = new User('','','','','','ROLE_USER','');
     this.url = GLOBAL.url;
@@ -57,7 +58,7 @@ export class AppComponent implements OnInit {
 			  			}else{
 			  				//Crear elemento en el localstorage para tener el token disponible
 			  				localStorage.setItem('token',token);
-			  				this.user_register = new User('','','','','','ROLE_USER','');
+			  				this.user = new User('','','','','','ROLE_USER','');
 			  			}
 			  		},
 			  		error =>{
@@ -108,5 +109,6 @@ export class AppComponent implements OnInit {
   	localStorage.clear();
   	this.identity = null;
   	this.token = null;
+    this._router.navigate(["/"]);
   }
 }
