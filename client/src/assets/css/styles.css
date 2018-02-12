@@ -5,17 +5,16 @@ html, body{
 	color: white;
 }
 
-.active{
-	border-bottom: 4px solid #84BD00;
-	padding-bottom: 4px;
-}
-
 .head-title{
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: uppercase;
 	margin-bottom: 25px;
 	display: block;
+}
+
+.home{
+	color: #3F3F46;
 }
 
 .navigation{
@@ -34,7 +33,7 @@ html, body{
 }
 
 .navigation a:hover{
-	color: white;
+	color: #84BD00;
 }
 
 .navigation .glyphicon{
@@ -68,4 +67,10 @@ html, body{
 
 .btn-logout{
 	cursor: pointer;
+}
+
+.navigation .active{
+	/*border-bottom: 4px solid #84BD00;*/
+	padding-bottom: 4px;
+	color: #84BD00;
 }

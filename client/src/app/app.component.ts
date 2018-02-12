@@ -20,7 +20,11 @@ export class AppComponent implements OnInit {
   public alertRegister;
   public url: string;
 
-  constructor(private _userService: UserService, private _router: Router){
+  constructor(
+    private _userService: UserService, 
+    private _router: Router,
+    private _route: ActivatedRoute
+  ){
   	this.user = new User('','','','','','ROLE_USER','');
   	this.user_register = new User('','','','','','ROLE_USER','');
     this.url = GLOBAL.url;
@@ -99,8 +103,8 @@ export class AppComponent implements OnInit {
   		},
   		error =>{
   			var body = JSON.parse(error._body);
-			this.alertRegister = body.messaje;
-			console.log(error);
+  			this.alertRegister = body.messaje;
+  			console.log(error);
   		}
   	);
   }
