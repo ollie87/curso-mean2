@@ -16,6 +16,7 @@ export class UserEditComponent implements OnInit{
 	public token;
 	public alertMessage;
 	public url: string;
+	public classAlertMessaje;
 
 
 	constructor(private _userService: UserService){
@@ -37,6 +38,7 @@ export class UserEditComponent implements OnInit{
 			response =>{
 				if (!response.user) {
 					this.alertMessage = 'El usuario no se ha actualizado';
+					this.classAlertMessaje = 'alert alert-danger';
 				}else{
 					//this.user = response.user;
 					localStorage.setItem('identity', JSON.stringify(this.user));
@@ -55,12 +57,14 @@ export class UserEditComponent implements OnInit{
 					}
 
 					this.alertMessage = 'Datos actualizados correctamente';
+					this.classAlertMessaje = 'alert alert-info';
 				}
 			},
 			error =>{
 	  			if (error != null) {
 	  				var body = JSON.parse(error._body);
 	  				this.alertMessage = body.messaje;
+	  				this.classAlertMessaje = 'alert alert-danger';
 	  				console.log(error);
 	  			}
 	  		}
