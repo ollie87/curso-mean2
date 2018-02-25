@@ -137,7 +137,7 @@ function uploadImage(req, res){
 		var ex_split = file_path.split('\.');
 		var file_ex = ex_split[1];
 
-		if(file_ex == 'png' || file_ex == 'jpg' || file_ex == 'gif'){
+		if(file_ex == 'png' || file_ex == 'jpg' || file_ex == 'jpeg' || file_ex == 'gif'){
 			Artist.findByIdAndUpdate(artistId,{image: file_name},(err, artistUpdated) =>{
 				if (err) {
 					console.log(err);
@@ -154,7 +154,7 @@ function uploadImage(req, res){
 			});
 		}else{
 			file.deleteFile(file_path);
-			res.status(200).send({messaje: 'Extensión del archivo no válido'});
+			res.status(500).send({messaje: 'Extensión del archivo no válido'});
 		}
 	}else{
 		res.status(200).send({messaje: 'No ha subido ninguna imagen'});
