@@ -18,6 +18,7 @@ export class ArtistAddComponent implements OnInit {
 	public token;
 	public url: string;
 	public alertMessage;
+	public classAlertMessaje;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -41,9 +42,11 @@ export class ArtistAddComponent implements OnInit {
 			response => {
 				if (!response.artist) {
 					this.alertMessage = 'Error en el servidor';
+					this.classAlertMessaje = 'alert alert-danger';
 				}else{
 					this.alertMessage = 'El artista se ha creado correctamente';
 					this.artist = response.artist;
+					this.classAlertMessaje = 'alert alert-info';
 					//this._router.navigate(['/editar-artista'], response.artist._id);
 				}
 			},
@@ -51,7 +54,7 @@ export class ArtistAddComponent implements OnInit {
 	  			if (error != null) {
 	  				var body = JSON.parse(error._body);
 	  				this.alertMessage = body.messaje;
-	  				console.log(error);
+	  				this.classAlertMessaje = 'alert alert-danger';
 	  			}
 	  		}
 		)

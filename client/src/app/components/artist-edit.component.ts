@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {ArtistService} from '../services/artist.service';
+import {UploadService} from '../services/upload.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Artist} from '../models/artist';
 import {GLOBAL} from '../services/global';
@@ -8,7 +9,7 @@ import {GLOBAL} from '../services/global';
 @Component({
 	selector: 'artist-edit',
 	templateUrl: '../views/artist-add.html',
-	providers: [UserService,ArtistService]
+	providers: [UserService,ArtistService,UploadService]
 })
 
 export class ArtistEditComponent implements OnInit {
@@ -19,12 +20,14 @@ export class ArtistEditComponent implements OnInit {
 	public url: string;
 	public alertMessage;
 	public is_edit;
+	public classAlertMessaje;
 
 	constructor(
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserService,
-		private _artistService: ArtistService
+		private _artistService: ArtistService,
+		private _uploadService: UploadService
 	) {
 		this.titulo = 'Actualizar artista';
 		this.identity = this._userService.getIdentity();
@@ -55,6 +58,7 @@ export class ArtistEditComponent implements OnInit {
 		  			if (error != null) {
 		  				var body = JSON.parse(error._body);
 		  				this.alertMessage = body.messaje;
+		  				this.classAlertMessaje = 'alert alert-danger';
 		  				console.log(error);
 		  			}
 	  			}
@@ -68,8 +72,22 @@ export class ArtistEditComponent implements OnInit {
 				response => {
 					if (!response.artist) {
 						this.alertMessage = 'Error en el servidor';
+						this.classAlertMessaje = 'alert alert-danger';
 					}else{
 						this.alertMessage = 'El artista se ha actualizado correctamente';
+						this.classAlertMessaje = 'alert alert-info';
+						//Subir la imagen de artista
+						this._uploadService.makeFileRequest(this.url+'upload-image-artist/'+id,[],this.filesToUpload,this.token,'image')
+							.then(
+								(result) =>{
+									this._router.navigate(['/artistas',1]);
+								},
+								(error)=>{
+									var body = JSON.parse(error);
+									this.alertMessage = body.messaje;
+									this.classAlertMessaje = 'alert alert-danger';
+								}
+							);
 						//this._router.navigate(['/editar-artista'], response.artist._id);
 					}
 				},
@@ -77,10 +95,14 @@ export class ArtistEditComponent implements OnInit {
 		  			if (error != null) {
 		  				var body = JSON.parse(error._body);
 		  				this.alertMessage = body.messaje;
-		  				console.log(error);
+		  				this.classAlertMessaje = 'alert alert-danger';
 		  			}
 		  		}
 			)
 		});
+	}
+	public filesToUpload: Array<File>;
+	fileChangeEvent(fileInput: any){
+		this.filesToUpload = <Array<File>>fileInput.target.files;
 	}
 }
