@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
 import {ArtistService} from '../services/artist.service';
+import {AlbumService} from '../services/album.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Artist} from '../models/artist';
 import {Album} from '../models/album';
@@ -9,7 +10,7 @@ import {GLOBAL} from '../services/global';
 @Component({
 	selector: 'album-add',
 	templateUrl: '../views/album-add.html',
-	providers: [UserService,ArtistService]
+	providers: [UserService,ArtistService,AlbumService]
 })
 
 export class AlbumAddComponent implements OnInit {
@@ -26,7 +27,8 @@ export class AlbumAddComponent implements OnInit {
 		private _route: ActivatedRoute,
 		private _router: Router,
 		private _userService: UserService,
-		private _artistService: ArtistService
+		private _artistService: ArtistService,
+		private _albumService: AlbumService
 	) {
 		this.titulo = 'Crear nuevo album';
 		this.identity = this._userService.getIdentity();
@@ -39,17 +41,21 @@ export class AlbumAddComponent implements OnInit {
 		console.log('album-add.component.ts cargado');
 	}
 	onSubmit(){
-		/*console.log(this.artist);
-		this._artistService.addArtist(this.token,this.artist).subscribe(
+		this._route.params.forEach((params: Params) => {
+			let artist_id = params['artist'];
+			this.album.artist = artist_id;
+		});
+		console.log(this.album);
+		this._albumService.addAlbum(this.token,this.album).subscribe(
 			response => {
-				if (!response.artist) {
+				if (!response.album) {
 					this.alertMessage = 'Error en el servidor';
 					this.classAlertMessaje = 'alert alert-danger';
 				}else{
 					this.alertMessage = 'El artista se ha creado correctamente';
-					this.artist = response.artist;
+					this.album = response.album;
 					this.classAlertMessaje = 'alert alert-info';
-					this._router.navigate(['/editar_artista/' + response.artist._id]);
+					//this._router.navigate(['/editar_artista/' + response.artist._id]);
 				}
 			},
 			error =>{
@@ -59,6 +65,6 @@ export class AlbumAddComponent implements OnInit {
 	  				this.classAlertMessaje = 'alert alert-danger';
 	  			}
 	  		}
-		)*/
+		)
 	}
 }
