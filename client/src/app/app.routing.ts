@@ -13,6 +13,7 @@ import { ArtistDetailComponent } from './components/artist-detail.component';
 
 //import album
 import { AlbumAddComponent } from './components/album-add.component';
+import { AlbumEditComponent } from './components/album-edit.component';
 
 const appRoutes: Routes = [
 	//{path: '', redirectTo: '/artists/1', pathMatch: 'full'},
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
 	{path: 'editar_artista/:id', component: ArtistEditComponent},
 	{path: 'artista/:id', component: ArtistDetailComponent},
 	{path: 'crear_album/:artist', component: AlbumAddComponent},
+	{path: 'editar_album/:id', component: AlbumEditComponent},
 	{path: '**', component: HomeComponent},
 ];
 

@@ -52,10 +52,10 @@ export class AlbumAddComponent implements OnInit {
 					this.alertMessage = 'Error en el servidor';
 					this.classAlertMessaje = 'alert alert-danger';
 				}else{
-					this.alertMessage = 'El artista se ha creado correctamente';
+					this.alertMessage = 'El album se ha creado correctamente';
 					this.album = response.album;
 					this.classAlertMessaje = 'alert alert-info';
-					//this._router.navigate(['/editar_artista/' + response.artist._id]);
+					this._router.navigate(['/editar_album/' + response.album._id]);
 				}
 			},
 			error =>{
