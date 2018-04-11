@@ -21,6 +21,8 @@ export class ArtistDetailComponent implements OnInit {
 	public url: string;
 	public alertMessage;
 	public classAlertMessaje;
+	public confirmado;
+	public albums;
 
 	constructor(
 		private _route: ActivatedRoute,
@@ -67,6 +69,7 @@ export class ArtistDetailComponent implements OnInit {
 					  				console.log(error);
 					  			}
 				  			}
+				  		)
 					}
 				},
 				error =>{
@@ -79,5 +82,35 @@ export class ArtistDetailComponent implements OnInit {
 	  			}
 			)
 		});
+	};
+
+	onDeleteConfirm(id){
+		this.confirmado = id;
 	}
+
+	onCancelAlbum(){
+		this.confirmado = null;
+	}
+
+	onDeleteAlbum(id){
+		this._albumService.deleteAlbum(this.token, id).subscribe(
+			response =>{	
+				console.log(response);
+				if (!response.album) {
+					this.alertMessage = 'Error en el servidor';
+				}else{
+					this.getArtist();
+				}
+			},
+			error =>{
+	  			if (error != null) {
+	  				var body = JSON.parse(error._body);
+	  				this.alertMessage = body.messaje;
+	  				this.classAlertMessaje = 'alert alert-danger';
+	  				console.log(error);
+	  			}
+  			}
+		);
+	}
+
 }
