@@ -81,33 +81,4 @@ export class AlbumDetailComponent implements OnInit {
 		});
 	};
 
-	onDeleteConfirm(id){
-		this.confirmado = id;
-	}
-
-	onCancelAlbum(){
-		this.confirmado = null;
-	}
-
-	onDeleteAlbum(id){
-		this._albumService.deleteAlbum(this.token, id).subscribe(
-			response =>{	
-				console.log(response);
-				if (!response.album) {
-					this.alertMessage = 'Error en el servidor';
-				}else{
-					this.getAlbum();
-				}
-			},
-			error =>{
-	  			if (error != null) {
-	  				var body = JSON.parse(error._body);
-	  				this.alertMessage = body.messaje;
-	  				this.classAlertMessaje = 'alert alert-danger';
-	  				console.log(error);
-	  			}
-  			}
-		);
-	}
-
 }
