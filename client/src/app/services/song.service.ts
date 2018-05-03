@@ -22,6 +22,19 @@ export class SongService {
 		return this._http.get(this.url+'song/'+id,options).map(res => res.json());
 	}
 
+	getSongs(token, albumId = null){
+		let headers = new Headers({
+			'Content-Type':'application/json',
+			'Authorization': token
+		});
+		let options = new RequestOptions({headers:headers});
+		if (albumId == null) {
+			return this._http.get(this.url+'songs/',options).map(res => res.json());
+		}else{
+			return this._http.get(this.url+'song/'+albumId,options).map(res => res.json());
+		}
+	}
+
 	addSong(token, song: Song){
 		let params = JSON.stringify(song);
 		let headers = new Headers({
@@ -42,5 +55,14 @@ export class SongService {
 
 		return this._http.put(this.url+'update-song/'+id,params,{headers: headers})
 					.map(res => res.json());
+	}
+
+	deleteSong(token, id: string){
+		let headers = new Headers({
+			'Content-Type':'application/json',
+			'Authorization': token
+		});
+		let options = new RequestOptions({headers:headers});
+		return this._http.delete(this.url+'delete-song/'+id,options).map(res => res.json());
 	}
 }
