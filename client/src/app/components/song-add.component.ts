@@ -51,7 +51,7 @@ export class SongAddComponent implements OnInit {
 					this.alertMessage = 'La canción se ha creado correctamente';
 					this.song = response.song;
 					this.classAlertMessaje = 'alert alert-info';
-					//this._router.navigate(['/editar_album/' + response.song._id]);
+					this._router.navigate(['/editar_tema/' + response.song._id]);
 				}
 			},
 			error =>{
