@@ -22,6 +22,20 @@ html, body{
 	/*overflow-y: scroll;*/
 }
 
+.derecha{
+	float: right;
+}
+
+.btn-circle{
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	padding: 6px 0;
+	font-size: 12px;
+	line-height: 1.42;
+	border-radius: 15px;
+}
+
 .navigation{
  text-align: center;
  color: white;
@@ -143,4 +157,30 @@ html, body{
 	height: 180px;
 }
 
+/*CANCIONES*/
+#gallery-songs{
+	margin-top: 20px;
+}
+#song-list{
+	margin: 0px;
+	padding: 0px;
+}
 
+.song-item{
+	list-style: none;
+	border-bottom: 1px solid #ccc;
+	padding-top: 3px;
+}
+
+.song-item .title{
+	padding: 12px;
+}
+
+.title .btn-info{
+	margin-right: 10px;
+}
+
+.artist-title p a{
+	color: white;
+	text-decoration: none;
+}
