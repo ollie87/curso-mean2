@@ -202,7 +202,7 @@ html, body{
 .player{
 	background: #1C1C1F;
 	position: fixed;
-	width: 90%;
+	width: 100%;
 	bottom: 0;
 	padding: 10px;
 	margin-left: -15px;

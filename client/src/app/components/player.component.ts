@@ -11,14 +11,14 @@ import {GLOBAL} from '../services/global';
 				<img id="play-image-album" src="{{ url + 'get-image-album/' + song.album.image}}" />
 			</span>
 			<span *ngIf="!song.album">
-				<img if="play-image-album" src="assets/images/default.png" />
+				<img id="play-image-album" src="assets/images/default.png" />
 			</span>
 		</div>
 		<div class="col-lg-1 audio-file">
-			<p>Reproduciendo</p>
 			<span id="play-song-title">{{song.name}}</span>
+			<br>
 			<span id="play-song-artist">
-				<span *ngIf="song.artist">{{song.album.artist.name}}</span>
+				<span *ngIf="song.album.artist">{{song.album.artist.name}}</span>
 			</span>
 		</div>
 		<div class="col-lg-10 audio-controls">
@@ -38,6 +38,14 @@ export class  PlayerComponent implements OnInit {
 		this.song = new Song(0,'','','','');
 	}
 	ngOnInit(){
-		console.log('player cargado')
+		console.log('player cargado');
+
+		var song = JSON.parse(localStorage.getItem('sound_song'));
+		if (song) {
+			this.song = song;
+		}
+		else{
+			this.song = new Song(0,'','','','');
+		}
 	}
 }
