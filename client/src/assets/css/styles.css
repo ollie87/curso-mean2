@@ -3,6 +3,7 @@ html, body{
 	height: 100%;
 	background: #3F3F46;
 	color: white;
+	overflow: hidden;
 }
 
 .head-title{
@@ -19,7 +20,8 @@ html, body{
 
 .central{
 	height: 100%;
-	/*overflow-y: scroll;*/
+	margin-bottom: 150px;
+	overflow-y: scroll;
 }
 
 .derecha{
@@ -102,8 +104,9 @@ html, body{
 .artists-list, .album-list{
 	margin: 0px;
 	padding: 0px;
-	margin-top: 30px;
+	margin-top: 20px;
 	list-style: none;
+	min-height: 600px;
 }
 
 .artist-item, 
@@ -115,6 +118,10 @@ html, body{
 	border: 1px solid #444; 
 	margin-left: 20px;
 	margin-top: 20px;
+}
+
+.album-item {
+	margin-bottom: 60px;
 }
 
 .artist-item .artist-image, 
@@ -157,13 +164,19 @@ html, body{
 	height: 180px;
 }
 
+.album-list{
+	min-height: 900px;
+}
+
 /*CANCIONES*/
 #gallery-songs{
 	margin-top: 20px;
 }
-#song-list{
+#songs-list{
 	margin: 0px;
 	padding: 0px;
+	min-height: 1400px;
+	padding-bottom: 200px;
 }
 
 .song-item{
@@ -183,4 +196,43 @@ html, body{
 .artist-title p a{
 	color: white;
 	text-decoration: none;
+}
+
+/*PLAYER*/
+.player{
+	background: #1C1C1F;
+	position: fixed;
+	width: 90%;
+	bottom: 0;
+	padding: 10px;
+	margin-left: -15px;
+	/*border-left: 1px solid #444;*/
+}
+
+.player .album-image{
+	float: left;
+	width: 123px;
+	height: 60px;
+	overflow: hidden;
+}
+
+.player .album-image img{
+	height: 50px;
+}
+
+/*.player .audio-file,{
+	height: 40px;
+	width: 20%;
+	margin-left: 10px;
+	float: left;
+}
+
+.player .audio-controls{
+	float: right;
+	width: 60%;
+}
+*/
+.player audio{
+	width: 90%;
+	height: 40px;
 }
